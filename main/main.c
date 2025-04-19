@@ -14,7 +14,7 @@
 #define ESP_CHANNEL 1
 //#define led 2
 
-uint8_t data[8];
+uint8_t data = 0;
 
 static uint8_t peer_mac[ESP_NOW_ETH_ALEN] = {0xf4, 0x65, 0x0b, 0x46, 0x53, 0x7c}; //* define un arreglo de 6 bytes inicializado en cero, destinado a almacenar la dirección MAC de un peer (dispositivo remoto) para usar en ESP-NOW.
 
@@ -99,16 +99,9 @@ void app_main(void){
 
     while(1){
         
-        data[0] = 0x7E;
-        data[1] = 0xAB;
-        data[2] = 0x11;
-        data[3] = 0x3D;
-        data[4] = 0x44;
-        data[5] = 0xA4;
-        data[6] = 0x73;
-        data[7] = 0x31;
+        data = 0x7E;
 
-        esp_now_send_data(peer_mac, data, 8);
+        esp_now_send_data(peer_mac, &data, 8);
         vTaskDelay(100 / portTICK_PERIOD_MS);   //Uso de tasks para la creación de un retardo)
     }
 
